@@ -2,26 +2,34 @@ package com.barra.ujikomandroid
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.ImageView
+import android.widget.TextView
+import com.barra.ujikomandroid.MenuActivity.MenuItem
 
 class DetailActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        val item = intent.getSerializableExtra("item") as MenuItem
+        val item = intent?.getParcelableExtra<MenuItem>("item")
 
-        val imageView: ImageView = findViewById(R.id.detail_image_view)
-        imageView.setImageResource(item.imageResource)
+        item?.let {
+            val itemNameTextView = findViewById<TextView>(R.id.item_name)
+            val itemImageView = findViewById<ImageView>(R.id.item_image)
+            val itemDescriptionTextView = findViewById<TextView>(R.id.item_description)
+            val itemPriceTextView = findViewById<TextView>(R.id.item_price)
 
-        val nameView: TextView = findViewById(R.id.detail_name_view)
-        nameView.text = item.name
-
-        val priceView: TextView = findViewById(R.id.detail_price_view)
-        priceView.text = item.price
-
-        val descView: TextView = findViewById(R.id.detail_desc_view)
-        descView.text = item.desc
+            itemNameTextView.text = it.name
+            itemImageView.setImageResource(it.imageId)
+            itemDescriptionTextView.text = it.description
+            itemPriceTextView.text = it.price
+        }
     }
 }
+

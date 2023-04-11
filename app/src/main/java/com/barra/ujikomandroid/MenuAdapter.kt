@@ -45,7 +45,7 @@ class MenuAdapter(private val menuList: List<MenuActivity.MenuItem>) : RecyclerV
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = menuList[position]
 
-        holder.imageView.setImageResource(currentItem.imageResource)
+        holder.imageView.setImageResource(currentItem.imageId)
         holder.nameView.text = currentItem.name
         holder.priceView.text = currentItem.price
         holder.descView.text = currentItem.description
